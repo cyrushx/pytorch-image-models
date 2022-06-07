@@ -219,7 +219,7 @@ default_cfgs = {
         input_size=(3, 224, 224)),
     'tf_efficientnet_b1': _cfg(
         url='https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-weights/tf_efficientnet_b1_aa-ea7a6ee0.pth',
-        input_size=(3, 240, 240), pool_size=(8, 8), crop_pct=0.882),
+        input_size=(23, 256, 256), pool_size=(8, 8), crop_pct=0.882),
     'tf_efficientnet_b2': _cfg(
         url='https://github.com/rwightman/pytorch-image-models/releases/download/v0.1-weights/tf_efficientnet_b2_aa-60c94f97.pth',
         input_size=(3, 260, 260), pool_size=(9, 9), crop_pct=0.890),

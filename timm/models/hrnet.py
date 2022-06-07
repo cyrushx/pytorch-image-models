@@ -29,7 +29,7 @@ _logger = logging.getLogger(__name__)
 def _cfg(url='', **kwargs):
     return {
         'url': url,
-        'num_classes': 1000, 'input_size': (3, 224, 224), 'pool_size': (7, 7),
+        'num_classes': 1000, 'input_size': (64, 256, 256), 'pool_size': (7, 7),
         'crop_pct': 0.875, 'interpolation': 'bilinear',
         'mean': IMAGENET_DEFAULT_MEAN, 'std': IMAGENET_DEFAULT_STD,
         'first_conv': 'conv1', 'classifier': 'classifier',
@@ -727,16 +727,16 @@ class HighResolutionNet(nn.Module):
         x = self.conv2(x)
         x = self.bn2(x)
         x = self.act2(x)
-
         # Stages
         yl = self.stages(x)
         if self.incre_modules is None or self.downsamp_modules is None:
             return yl
         y = self.incre_modules[0](yl[0])
-        for i, down in enumerate(self.downsamp_modules):
-            y = self.incre_modules[i + 1](yl[i + 1]) + down(y)
-        y = self.final_layer(y)
         return y
+        # for i, down in enumerate(self.downsamp_modules):
+        #     y = self.incre_modules[i + 1](yl[i + 1]) + down(y)
+        # y = self.final_layer(y)
+        # return y
 
     def forward_head(self, x, pre_logits: bool = False):
         # Classification Head
@@ -747,8 +747,8 @@ class HighResolutionNet(nn.Module):
 
     def forward(self, x):
         y = self.forward_features(x)
-        x = self.forward_head(y)
-        return x
+        # x = self.forward_head(y)
+        return y
 
 
 class HighResolutionNetFeatures(HighResolutionNet):
